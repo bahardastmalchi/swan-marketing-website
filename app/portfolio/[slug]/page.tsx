@@ -1,0 +1,8 @@
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { Footer, Header } from '@/components/site'
+import { ImagePlaceholder, LargeCTA } from '@/components/editorial'
+import { projects } from '@/data/content'
+export function generateStaticParams(){return projects.map(project=>({slug:project.slug}))}
+export default async function ProjectPage({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const project=projects.find(item=>item.slug===slug);if(!project)notFound();const index=projects.findIndex(item=>item.slug===slug);const next=projects[(index+1)%projects.length];return <><Header/><main className="internal-page project-page"><section className="project-hero"><p className="eyebrow">Portfolio / {project.category}</p><h1>{project.title}</h1><ImagePlaceholder label="Project hero" caption="Replace with Swan imagery" aspect="wide"/></section><section className="project-overview"><div><p className="eyebrow">Overview</p><h2>{project.description}</h2></div><div><p className="eyebrow">Services provided</p><ul>{project.services.map(service=><li key={service}>{service}</li>)}</ul></div></section><section className="project-gallery"><ImagePlaceholder label="Project visual" number="01" aspect="landscape"/><ImagePlaceholder label="Project visual" number="02" aspect="portrait"/><ImagePlaceholder label="Project visual" number="03" aspect="wide"/></section><section className="next-project"><p className="eyebrow">Next project</p><Link href={`/portfolio/${next.slug}`}><span>{next.title}</span><ArrowRight size={20}/></Link></section><LargeCTA eyebrow="Continue the conversation" title={<>Have a world to <em>build?</em></>}/></main><Footer/></>}

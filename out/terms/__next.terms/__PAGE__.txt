@@ -1,0 +1,25 @@
+1:"$Sreact.fragment"
+2:I[1396,["963","static/chunks/963-97caccdd470b3da7.js","396","static/chunks/396-51918d9d8e7b3f25.js","66","static/chunks/app/terms/page-1aa2a64433b26e9b.js"],"Header"]
+3:I[9540,["963","static/chunks/963-97caccdd470b3da7.js","396","static/chunks/396-51918d9d8e7b3f25.js","66","static/chunks/app/terms/page-1aa2a64433b26e9b.js"],"LegalPage"]
+4:I[1396,["963","static/chunks/963-97caccdd470b3da7.js","396","static/chunks/396-51918d9d8e7b3f25.js","66","static/chunks/app/terms/page-1aa2a64433b26e9b.js"],"Footer"]
+5:I[484,[],"OutletBoundary"]
+6:"$Sreact.suspense"
+a:I[484,[],"ViewportBoundary"]
+b:I[484,[],"MetadataBoundary"]
+d:I[7121,[],""]
+e:I[4581,[],""]
+:HL["/_next/static/css/c78a78e176bc7352.css","style"]
+:HL["/_next/static/css/14146f956083640a.css","style"]
+9:X
+10:X
+10:C
+0:{"buildId":"VIVf8MxWuPLmX_JIZsjOM","data":[{"rsc":["$","$1","c",{"children":[[["$","$L2",null,{}],["$","main",null,{"className":"internal-page legal-page","children":["$","$L3",null,{"title":"Terms of Use","children":[["$","p",null,{"children":"By using this website, you agree to use it lawfully and respectfully. These terms describe the general conditions for access to Swan Marketing's website."}],["$","h2",null,{"children":"Website content"}],["$","p",null,{"children":"The content on this website is provided for general information about Swan, its capabilities and its work. Content may change without notice. It should not be treated as a binding proposal or professional advice."}],["$","h2",null,{"children":"Intellectual property"}],["$","p",null,{"children":"Unless otherwise stated, the text, design and original materials on this website belong to Swan Marketing or are used with permission. Please do not reproduce or redistribute them without written consent."}],["$","h2",null,{"children":"External links"}],["$","p",null,{"children":"This website may include links to external services. Swan is not responsible for the availability or content of those services."}],["$","h2",null,{"children":"Contact"}],["$","p",null,{"children":"Questions about these terms can be sent to swanmrkting@gmail.com."}]]}]}],["$","$L4",null,{}]],null,["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"isPartial":"$@8","staleTime":"$9","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$La",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#f4f2ed"}],["$","meta","3",{"name":"color-scheme","content":"light"}]]}],["$","div",null,{"hidden":true,"children":["$","$Lb",null,{"children":["$","$6",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Swan Marketing — A more beautiful business world"}],["$","meta","1",{"name":"description","content":"Swan is a Dubai-based digital marketing and creative agency for ambitious brands."}]]}]}]}],null]}],"isPartial":"$@c","staleTime":"$9","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","template":["$","$Le",null,{}]}]]}],"isPartial":"$@f","staleTime":"$9","varyParams":"$10"},{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/c78a78e176bc7352.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/css/14146f956083640a.css","precedence":"next"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":["$","$Ld",null,{"parallelRouterKey":"children","template":["$","$Le",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}]]}],"isPartial":"$@11","staleTime":"$9","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@12","rootVaryParams":null,"needsRuntimeRequest":"$@13"}
+7:null
+9:300
+13:true
+9:C
+12:0
+c:"$undefined"
+f:"$undefined"
+11:"$undefined"
+8:"$undefined"

@@ -1,0 +1,601 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUpRight,
+  Aperture,
+  Layers3,
+  Plus,
+  Minus,
+} from 'lucide-react'
+import { Footer, Header } from '@/components/site'
+
+type Service = {
+  id: string
+  number: string
+  title: string
+  shortTitle: string
+  eyebrow: string
+  description: string
+  tags: string[]
+  deliverables: string[]
+  direction: string
+  videoSrc?: string
+  posterSrc?: string
+  workHref?: string
+}
+
+const services: Service[] = [
+  {
+    id: 'strategy',
+    number: '01',
+    title: 'Strategy & Marketing Consulting',
+    shortTitle: 'Strategy',
+    eyebrow: 'Clarity before creativity',
+    description:
+      'A sharper direction for your next chapter. We connect audience insight, brand positioning and business ambition into a clear, actionable marketing strategy.',
+    tags: ['Brand positioning', 'Audience insight', 'Marketing roadmap'],
+    deliverables: [
+      'Brand and market discovery',
+      'Audience definition and positioning',
+      'Messaging and marketing roadmap',
+    ],
+    direction:
+      'Turn business ambition into a clear point of view — and a practical plan to move forward.',
+  },
+  {
+    id: 'identity',
+    number: '02',
+    title: 'Brand Identity & Visual Systems',
+    shortTitle: 'Brand identity',
+    eyebrow: 'Recognition, made intentional',
+    description:
+      'A visual language with a point of view. From the first impression to the smallest detail, we build cohesive brand systems designed to feel unmistakably yours.',
+    tags: ['Visual identity', 'Art direction', 'Brand guidelines'],
+    deliverables: [
+      'Logo, typography and colour systems',
+      'Graphic language and brand applications',
+      'Visual guidelines for consistent execution',
+    ],
+    direction:
+      'Create a distinctive identity that stays recognisable wherever your brand appears.',
+  },
+  {
+    id: 'content',
+    number: '03',
+    title: 'Content Production',
+    shortTitle: 'Content',
+    eyebrow: 'Content that moves people',
+    description:
+      'Stories with substance. Films, photography and branded content that translate your world into something people want to watch, remember and share.',
+    tags: ['Film & photography', 'Social content', 'Post-production'],
+    deliverables: [
+      'Creative concepts and production planning',
+      'Photography and video production',
+      'Editing and channel-ready adaptations',
+    ],
+    direction:
+      'Give your brand a visual world with purpose, feeling and a consistent creative standard.',
+  },
+  {
+    id: 'social',
+    number: '04',
+    title: 'Social Media Management',
+    shortTitle: 'Social media',
+    eyebrow: 'A presence with purpose',
+    description:
+      'A considered social presence with a consistent voice, thoughtful content and a rhythm that keeps your brand connected to its community.',
+    tags: ['Editorial planning', 'Community', 'Reporting'],
+    deliverables: [
+      'Channel strategy and editorial calendars',
+      'Publishing and community management',
+      'Content review and performance reporting',
+    ],
+    direction:
+      'Build a social presence that feels deliberate, relevant and unmistakably on-brand.',
+  },
+  {
+    id: 'growth',
+    number: '05',
+    title: 'Lead Generation & Paid Advertising',
+    shortTitle: 'Paid advertising',
+    eyebrow: 'Reach further',
+    description:
+      'Creative and performance, working together. Targeted campaigns that connect your business with relevant audiences and turn attention into meaningful opportunities.',
+    tags: ['Paid media', 'Lead generation', 'Optimisation'],
+    deliverables: [
+      'Campaign strategy and audience targeting',
+      'Ad creative and measurement planning',
+      'Campaign optimisation and reporting',
+    ],
+    direction:
+      'Connect the right message with the right audience and refine around meaningful business signals.',
+  },
+  {
+    id: 'web',
+    number: '06',
+    title: 'Website Design & Development',
+    shortTitle: 'Websites',
+    eyebrow: 'Beautiful websites. Stronger brands.',
+    description:
+      'Your most important brand destination. Distinctive aesthetics, intuitive experiences and a clear path to action, brought together in a considered website.',
+    tags: ['UX / UI', 'Development', 'Responsive design'],
+    deliverables: [
+      'Site architecture and user experience',
+      'Interface design and responsive development',
+      'Launch preparation and quality checks',
+    ],
+    direction:
+      'Translate your brand into a digital experience that feels exceptional and works intuitively.',
+  },
+  {
+    id: 'talent',
+    number: '07',
+    title: 'Modeling Management',
+    shortTitle: 'Modeling',
+    eyebrow: 'Exceptional talent',
+    description:
+      'The right presence changes the story. We connect brands and productions with talent that fits the brief, the aesthetic and the ambition of each project.',
+    tags: ['Talent selection', 'Casting', 'Coordination'],
+    deliverables: [
+      'Talent recommendations and casting',
+      'Booking and production coordination',
+      'Creative brief alignment',
+    ],
+    direction:
+      'Bring the right people into the frame, with every selection connected to the creative vision.',
+  },
+  {
+    id: 'direction',
+    number: '08',
+    title: 'Creative Direction for Brand Shoots',
+    shortTitle: 'Creative direction',
+    eyebrow: 'Beauty in every detail',
+    description:
+      'One clear vision, carried through every frame. We shape the concept, mood and visual direction so your shoot feels purposeful and completely on-brand.',
+    tags: ['Concept development', 'Moodboards', 'On-set direction'],
+    deliverables: [
+      'Shoot concepts and visual references',
+      'Moodboards and shot direction',
+      'On-set creative oversight',
+    ],
+    direction:
+      'Align every frame, material and creative decision around a coherent brand story.',
+  },
+]
+
+const phases = [
+  {
+    title: 'Discover',
+    headline: 'Find the signal.',
+    description:
+      'Understand your audience, ambition and the opportunity worth pursuing.',
+    output: 'Shared understanding of the brand, audience and business priorities.',
+  },
+  {
+    title: 'Define',
+    headline: 'Own your position.',
+    description:
+      'Build the strategic and visual foundations that make your brand recognisable.',
+    output: 'Clear positioning, creative direction and an actionable roadmap.',
+  },
+  {
+    title: 'Create',
+    headline: 'Make it matter.',
+    description:
+      'Translate the direction into content, campaigns and digital experiences.',
+    output: 'Brand-aligned creative, prepared for the channels that matter.',
+  },
+  {
+    title: 'Refine',
+    headline: 'Keep moving.',
+    description:
+      'Learn from audience behaviour and improve as your business evolves.',
+    output: 'A review cycle that connects learning with the next creative decision.',
+  },
+]
+
+function ServiceVisual({ id }: { id: string }) {
+  switch (id) {
+    case 'strategy':
+      return (
+        <div className="sv-art sv-art-strategy">
+          <div className="sv-orbit">
+            <i />
+            <i />
+            <span>SWAN</span>
+          </div>
+          <p>Ideas · People · Brands · Tomorrow</p>
+        </div>
+      )
+
+    case 'identity':
+      return (
+        <div className="sv-art sv-art-identity">
+          <span className="sv-identity-mark">SWAN.</span>
+          <p>A more beautiful<br />business world</p>
+          <div className="sv-colour-system">
+            <i /><i /><i /><i />
+          </div>
+        </div>
+      )
+
+    case 'content':
+      return (
+        <div className="sv-art sv-art-content">
+          <span>CONTENT</span>
+          <em>that moves</em>
+          <span>PEOPLE.</span>
+          <i className="sv-frame-corner sv-frame-corner-a" />
+          <i className="sv-frame-corner sv-frame-corner-b" />
+        </div>
+      )
+
+    case 'social':
+      return (
+        <div className="sv-art sv-art-social">
+          <span>PLAN.</span>
+          <em>Create.</em>
+          <span>POST.</span>
+          <em>Grow.</em>
+        </div>
+      )
+
+    case 'growth':
+      return (
+        <div className="sv-art sv-art-growth">
+          <span>Reach <em>further.</em></span>
+          <svg
+            viewBox="0 0 360 140"
+            role="img"
+            aria-label="Conceptual growth illustration, not campaign results"
+          >
+            <path
+              className="sv-chart-grid"
+              d="M0 35H360M0 70H360M0 105H360"
+            />
+            <path
+              className="sv-chart-area"
+              d="M0 125L45 110L90 115L135 85L180 92L225 50L270 58L315 25L360 8V140H0Z"
+            />
+            <path
+              className="sv-chart-line"
+              d="M0 125L45 110L90 115L135 85L180 92L225 50L270 58L315 25L360 8"
+            />
+          </svg>
+          <small>Illustrative signal · Not campaign results</small>
+        </div>
+      )
+
+    case 'web':
+      return (
+        <div className="sv-art sv-art-web">
+          <div className="sv-browser">
+            <div className="sv-browser-bar">
+              <span><i /><i /><i /></span>
+              <small>SWAN / DIGITAL EXPERIENCE</small>
+            </div>
+            <div className="sv-browser-body">
+              <span>Beautiful<br />websites.</span>
+              <em>Stronger brands.</em>
+              <div className="sv-browser-tiles"><i /><i /><i /></div>
+            </div>
+          </div>
+        </div>
+      )
+
+    case 'talent':
+      return (
+        <div className="sv-art sv-art-talent">
+          <em>Exceptional</em>
+          <span>TALENT.</span>
+          <p>Extraordinary opportunities</p>
+          <div className="sv-talent-outline" />
+        </div>
+      )
+
+    default:
+      return (
+        <div className="sv-art sv-art-direction">
+          <span>VISION.</span>
+          <em>Direction.</em>
+          <span>BEAUTY.</span>
+          <p>In every detail</p>
+        </div>
+      )
+  }
+}
+
+export default function ServicesPage() {
+  const rootRef = useRef<HTMLElement>(null)
+  const [activeService, setActiveService] = useState(services[0].id)
+  const [openService, setOpenService] = useState<string | null>(null)
+  const [activePhase, setActivePhase] = useState(0)
+
+  useEffect(() => {
+    const root = rootRef.current
+    if (!root || !('IntersectionObserver' in window)) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveService(entry.target.id)
+        })
+      },
+      { rootMargin: '-18% 0px -55% 0px', threshold: 0 },
+    )
+
+    root.querySelectorAll('[data-service-section]').forEach((section) => {
+      observer.observe(section)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <>
+      <Header />
+
+      <main ref={rootRef} className="internal-page swan-services-page">
+        <section className="sv-hero">
+          <div className="sv-topline">
+            <span>Our services / Integrated creative thinking</span>
+            <span>Dubai · Worldwide</span>
+          </div>
+
+          <div className="sv-hero-grid">
+            <h1>
+              Elevated solutions<br />
+              <em>for ambitious brands.</em>
+            </h1>
+
+            <div className="sv-hero-side">
+              <Aperture size={24} strokeWidth={1} />
+              <p>
+                From strategy to content, creative to growth — SWAN
+                provides end-to-end marketing and creative services
+                designed to help visionary brands stand out, scale, and
+                lead in a more aesthetic world.
+              </p>
+              <span>A more beautiful business world</span>
+            </div>
+          </div>
+
+          <div className="sv-hero-bottom">
+            <span className="sv-status">
+              Eight disciplines. One creative standard.
+            </span>
+            <a href="#services">
+              Explore our services <ArrowDown size={14} />
+            </a>
+          </div>
+        </section>
+
+        <div className="sv-manifesto" aria-hidden="true">
+          <span>Ideas</span><i>✳</i>
+          <span>People</span><i>✳</i>
+          <span>Brands</span><i>✳</i>
+          <span>Tomorrow</span>
+          <span className="sv-manifesto-note">
+            A more beautiful business world
+          </span>
+        </div>
+
+        <section id="services" className="sv-services-layout">
+          <aside className="sv-sidebar">
+            <p className="sv-eyebrow">Capabilities / 01—08</p>
+
+            <nav className="sv-service-index" aria-label="Service navigation">
+              {services.map((service) => (
+                <a
+                  key={service.id}
+                  href={`#${service.id}`}
+                  className={activeService === service.id ? 'is-active' : ''}
+                  aria-current={
+                    activeService === service.id ? 'location' : undefined
+                  }
+                  onClick={() => setActiveService(service.id)}
+                >
+                  <span>{service.number}</span>
+                  {service.shortTitle}
+                </a>
+              ))}
+            </nav>
+
+            <p className="sv-sidebar-note">
+              Different disciplines.<br />
+              <em>Shared ambition.</em>
+            </p>
+          </aside>
+
+          <div className="sv-service-list">
+            {services.map((service) => {
+              const isOpen = openService === service.id
+
+              return (
+                <article
+                  id={service.id}
+                  key={service.id}
+                  className={`sv-service sv-service-${service.id}`}
+                  data-service-section
+                >
+                  <div className="sv-service-top">
+                    <span>{service.number} / {service.eyebrow}</span>
+                    <span>SWAN SERVICES</span>
+                  </div>
+
+                  <div className="sv-service-grid">
+                    <div className="sv-service-copy">
+                      <h2>{service.title}</h2>
+                      <p>{service.description}</p>
+
+                      <div className="sv-tags">
+                        {service.tags.map((tag) => (
+                          <span key={tag}>{tag}</span>
+                        ))}
+                      </div>
+
+                      <button
+                        type="button"
+                        className="sv-more"
+                        aria-expanded={isOpen}
+                        aria-controls={`detail-${service.id}`}
+                        onClick={() =>
+                          setOpenService(isOpen ? null : service.id)
+                        }
+                      >
+                        {isOpen ? 'Less info' : 'More info'}
+                        {isOpen ? <Minus size={14} /> : <Plus size={14} />}
+                      </button>
+                    </div>
+
+                    <div className="sv-service-media">
+                      <div className="sv-video-frame">
+                        {service.videoSrc ? (
+                          <video
+                            key={service.videoSrc}
+                            controls
+                            playsInline
+                            preload="none"
+                            poster={service.posterSrc}
+                            aria-label={`${service.title} showcase`}
+                          >
+                            <source src={service.videoSrc} />
+                            Your browser does not support embedded video.
+                          </video>
+                        ) : (
+                          <>
+                            <div className="sv-frame-top">
+                              <span>SWAN / {service.number}</span>
+                              <span>Visual study</span>
+                            </div>
+
+                            <ServiceVisual id={service.id} />
+
+                            <div className="sv-frame-bottom">
+                              <span>Service film / Reserved media</span>
+                              <Layers3 size={14} strokeWidth={1.2} />
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      {service.workHref ? (
+                        <Link
+                          href={service.workHref}
+                          className="sv-work-link"
+                        >
+                          <span>Explore selected work</span>
+                          <ArrowUpRight size={15} />
+                        </Link>
+                      ) : (
+                        <div className="sv-work-placeholder">
+                          <span>Selected work / {service.shortTitle}</span>
+                          <span>Portfolio space</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div
+                    id={`detail-${service.id}`}
+                    className="sv-service-details"
+                    hidden={!isOpen}
+                  >
+                    <div>
+                      <h3>What we bring</h3>
+                      <ul>
+                        {service.deliverables.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h3>The direction</h3>
+                      <p>{service.direction}</p>
+                      <Link
+                        href={`/contact?service=${encodeURIComponent(service.title)}`}
+                        className="sv-detail-contact"
+                      >
+                        Discuss this service <ArrowUpRight size={14} />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </section>
+
+        <section className="sv-approach">
+          <p className="sv-eyebrow">The SWAN approach</p>
+
+          <div className="sv-approach-heading">
+            <h2>
+              Connected by design.<br />
+              <em>Built for momentum.</em>
+            </h2>
+            <p>
+              Every touchpoint should speak the same language. We connect
+              strategic clarity, distinctive creative and thoughtful
+              execution around your business objectives.
+            </p>
+          </div>
+
+          <div className="sv-phases" aria-label="Explore our working process">
+            {phases.map((phase, index) => (
+              <button
+                type="button"
+                key={phase.title}
+                className={`sv-phase ${activePhase === index ? 'is-active' : ''}`}
+                aria-pressed={activePhase === index}
+                onClick={() => setActivePhase(index)}
+              >
+                <span className="sv-phase-number">
+                  0{index + 1} / {phase.title}
+                </span>
+                <strong>{phase.headline}</strong>
+                <span className="sv-phase-description">
+                  {phase.description}
+                </span>
+                <ArrowUpRight size={16} />
+              </button>
+            ))}
+          </div>
+
+          <div className="sv-phase-output" aria-live="polite" aria-atomic="true">
+            <span>Stage output</span>
+            <p>{phases[activePhase].output}</p>
+            <span>0{activePhase + 1} / 04</span>
+          </div>
+        </section>
+
+        <section className="sv-close">
+          <div>
+            <p className="sv-eyebrow">Your next chapter</p>
+            <h2>
+              Beautiful thinking.<br />
+              <em>Real-world impact.</em>
+            </h2>
+          </div>
+
+          <div className="sv-close-side">
+            <p>
+              Bring us your ambition.<br />
+              Let’s give it a distinctive direction.
+            </p>
+            <Link href="/contact" className="sv-project-button">
+              Start a project <ArrowRight size={17} />
+            </Link>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </>
+  )
+}
