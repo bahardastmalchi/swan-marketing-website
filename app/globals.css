@@ -2856,3 +2856,236 @@ main.internal-page.swan-services-page {
   .hx-step { justify-content:center; padding:0 0 28px; }
   .hx-step-lead { min-height:0; }
 }
+/* =========================================================
+   SWAN — Responsive Footer
+   Mobile-first refinement
+   ========================================================= */
+
+.footer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 5vw;
+  padding: 55px 0;
+}
+
+.footer-grid > div {
+  min-width: 0;
+}
+
+.footer-grid .wordmark {
+  width: 112px;
+  height: 44px;
+  margin-bottom: 25px;
+}
+
+.footer-note {
+  max-width: 280px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.footer-grid a,
+.footer-grid span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.footer-bottom {
+  min-width: 0;
+}
+
+.footer-bottom > span {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 601px) and (max-width: 800px) {
+
+  .footer-grid {
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 45px 30px;
+    padding: 55px 0;
+  }
+
+  .footer-grid > div:first-child {
+    grid-column: 1 / -1;
+    padding-bottom: 10px;
+  }
+
+  .footer-note {
+    max-width: 420px;
+  }
+
+  .footer-bottom {
+    flex-wrap: wrap;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .footer {
+    padding: 0 var(--page-pad) 22px;
+  }
+
+  .footer-line {
+    width: 100%;
+  }
+
+  /* Contact CTA */
+  .footer-lead {
+    padding: 70px 0 60px;
+  }
+
+  .footer-lead h2 {
+    max-width: 330px;
+    margin: 20px 0 32px;
+    font-size: clamp(48px, 14vw, 64px);
+    line-height: .9;
+  }
+
+  .footer-lead .button {
+    width: 100%;
+    max-width: 280px;
+  }
+
+
+  /* Main footer */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px 28px;
+    padding: 55px 0 45px;
+  }
+
+  /* Brand section */
+  .footer-grid > div:first-child {
+    grid-column: 1 / -1;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .footer-grid .wordmark {
+    width: 100px;
+    height: 40px;
+    margin-bottom: 20px;
+  }
+
+  .footer-note {
+    max-width: 330px;
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+
+  /* Footer columns */
+  .footer-grid > div:not(:first-child) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-label {
+    margin-bottom: 14px;
+    font-size: 9px;
+    letter-spacing: .14em;
+  }
+
+  .footer-grid a,
+  .footer-grid span {
+    margin: 4px 0;
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+
+  /* Contact column gets full width */
+  .footer-grid > div:last-child {
+    grid-column: 1 / -1;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+  }
+
+  .footer-grid > div:last-child .footer-label {
+    margin-bottom: 12px;
+  }
+
+
+  /* Bottom bar */
+  .footer-bottom {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+    padding-top: 18px;
+    font-size: 8px;
+    line-height: 1.6;
+  }
+
+  .footer-bottom > span {
+    display: block;
+  }
+
+  .footer-bottom > span:last-child {
+    margin-top: 4px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 22px;
+    row-gap: 42px;
+  }
+
+  .footer-grid .wordmark {
+    width: 92px;
+    height: 38px;
+  }
+
+  .footer-note {
+    max-width: 290px;
+    font-size: 10.5px;
+  }
+
+  .footer-grid a,
+  .footer-grid span {
+    font-size: 10.5px;
+  }
+
+  .footer-lead h2 {
+    font-size: 50px;
+  }
+
+  .footer-lead .button {
+    max-width: 100%;
+  }
+
+}
