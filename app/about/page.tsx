@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import Link from 'next/link'
 import {
@@ -8,7 +7,6 @@ import {
   TrendingUp,
   Target,
   Clapperboard,
-  CheckCircle2,
   CalendarDays,
   ShieldCheck,
   Zap,
@@ -109,29 +107,41 @@ export default function About() {
   return (
     <>
       <Header />
-
       <main className="internal-page about-page">
         {/* Editorial Hero */}
         <section className="about-hero">
-          <div className="about-hero-content">
-            <div className="about-badge">
-              <Sparkles size={13} />
-              <span>Swan Marketing Agency · Dubai</span>
+          <div className="about-hero-inner">
+            <div className="about-hero-content">
+              <div className="about-badge">
+                <Sparkles size={13} />
+                <span>Swan Marketing Agency · Dubai</span>
+              </div>
+              <h1>
+                We build brands <em>the right way.</em>
+              </h1>
+              <p className="about-lead">
+                At Swan, we combine clear strategic direction, high-production visual content, and structured execution to help visionary businesses grow, command authority, and dominate their category in Dubai and internationally.
+              </p>
+              <div className="about-hero-meta">
+                <span>Strategy</span>
+                <span className="dot" />
+                <span>Content</span>
+                <span className="dot" />
+                <span>Growth</span>
+                <span className="dot" />
+                <span>Talent</span>
+              </div>
             </div>
-            <h1>
-              We build brands <em>the right way.</em>
-            </h1>
-            <p className="about-lead">
-              At Swan, we combine clear strategic direction, high-production visual content, and structured execution to help visionary businesses grow, command authority, and dominate their category in Dubai and internationally.
-            </p>
-            <div className="about-hero-meta">
-              <span>Strategy</span>
-              <span className="dot" />
-              <span>Content</span>
-              <span className="dot" />
-              <span>Growth</span>
-              <span className="dot" />
-              <span>Talent</span>
+
+            <div className="about-hero-media">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/money.png"
+                alt="Swan Marketing growth"
+                className="about-hero-image"
+                loading="eager"
+                decoding="async"
+              />
             </div>
           </div>
         </section>
@@ -142,7 +152,6 @@ export default function About() {
             <span className="eyebrow">01 / Core Methodology</span>
             <h2>Everything we do is planned, purposeful, and aligned with real results.</h2>
           </div>
-
           <div className="pillars-grid">
             {pillars.map((item) => {
               const Icon = item.icon
@@ -173,7 +182,6 @@ export default function About() {
                 We manage and scale accounts through consistent content, clear positioning, and structured execution. Here is how that discipline converts in practice:
               </p>
             </div>
-
             <div className="growth-cards-grid">
               {growthCases.map((c, idx) => (
                 <div className="growth-card" key={idx}>
@@ -181,7 +189,6 @@ export default function About() {
                     <span className="growth-badge">{c.tag}</span>
                     <span className="growth-duration">{c.duration}</span>
                   </div>
-
                   <div className="growth-numbers">
                     <div className="count-unit">
                       <small>Initial</small>
@@ -193,7 +200,6 @@ export default function About() {
                       <strong>{c.end}</strong>
                     </div>
                   </div>
-
                   <div className="growth-footer">
                     <span className="growth-pct">{c.percentage}</span>
                     <span className="growth-focus">{c.focus}</span>
@@ -201,7 +207,6 @@ export default function About() {
                 </div>
               ))}
             </div>
-
             <div className="growth-footer-note">
               <span>@swan.mrkting</span>
               <p>Consistent content & posting · Growth & active engagement · Systematic page development</p>
@@ -218,7 +223,6 @@ export default function About() {
               Predictability produces excellence. Our 5-phase monthly cycle guarantees zero guesswork and effortless delivery for our clients.
             </p>
           </div>
-
           <div className="roadmap-layout">
             {/* Timeline Selector */}
             <div className="roadmap-nav">
@@ -237,7 +241,6 @@ export default function About() {
                 </button>
               ))}
             </div>
-
             {/* Active Display Panel */}
             <div className="roadmap-display-panel">
               <div className="display-card">
@@ -288,7 +291,6 @@ export default function About() {
           </div>
         </section>
       </main>
-
       <Footer />
     </>
   )

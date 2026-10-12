@@ -1,11 +1,9 @@
 'use client'
-
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import {
   ArrowUpRight,
   ArrowRight,
-  Play,
   TrendingUp,
   MousePointerClick,
   Users,
@@ -21,6 +19,8 @@ type Category = {
   tags: string[]
   copy: string
   meta: string
+  videoSrc?: string
+  posterSrc?: string
 }
 
 const categories: Category[] = [
@@ -169,13 +169,6 @@ const metaStats = [
   { label: 'Link Clicks', value: '16,291', icon: MousePointerClick },
 ]
 
-const barData = [
-  { label: 'Reach', value: 58, note: '581K' },
-  { label: 'Impressions', value: 90, note: '1.29M' },
-  { label: 'Conversations', value: 72, note: '11K' },
-  { label: 'Link Clicks', value: 48, note: '16.3K' },
-]
-
 const FILTERS = [
   'All',
   'Real Estate',
@@ -202,76 +195,155 @@ export default function Portfolio() {
 
   const visibleCategories = useMemo(() => {
     if (activeFilter === 'All') return categories
-    return categories.filter((c) => c.title === activeFilter)
+    return categories.filter(
+      (category) => category.title === activeFilter,
+    )
   }, [activeFilter])
 
   return (
     <>
       <Header />
-
       <main className="internal-page portfolio-new-page">
         <section className="pf-hero">
-          <div className="pf-hero-badge">
-            <TrendingUp size={13} />
-            <span>Portfolio · @swan.mrkting</span>
-          </div>
-          <h1>
-            Work that <em>moves</em> markets.
-          </h1>
-          <p className="pf-hero-copy">
-            From premium real estate and automotive to hospitality, live events and AI-driven
-            visuals — Swan produces cinematic content across every niche, engineered for
-            attention, trust and measurable growth.
-          </p>
-          <div className="pf-hero-tags">
-            <span>16 niches</span>
-            <span className="dot" />
-            <span>Cinematic production</span>
-            <span className="dot" />
-            <span>Data-backed results</span>
+          <div className="pf-hero-inner">
+            <div className="pf-hero-text">
+              <div className="pf-hero-badge">
+                <TrendingUp size={13} aria-hidden="true" />
+                <span>Portfolio · @swan.mrkting</span>
+              </div>
+              <h1>
+                Work that <em>moves</em> markets.
+              </h1>
+              <p className="pf-hero-copy">
+                From premium real estate and automotive to hospitality,
+                live events and AI-driven visuals — Swan produces cinematic
+                content across every niche, engineered for attention, trust
+                and measurable growth.
+              </p>
+              <div className="pf-hero-tags">
+                <span>{categories.length} disciplines</span>
+                <span className="dot" aria-hidden="true" />
+                <span>Cinematic production</span>
+                <span className="dot" aria-hidden="true" />
+                <span>Data-backed results</span>
+              </div>
+            </div>
+
+            <div className="pf-hero-media">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/camera.png"
+                alt="Swan Marketing cinematic camera"
+                className="pf-hero-image"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
           </div>
         </section>
 
-        <section className="pf-filter-bar">
+        <section
+          className="pf-filter-bar"
+          aria-label="Filter portfolio categories"
+        >
           <div className="pf-filter-scroll">
-            {FILTERS.map((f) => (
+            {FILTERS.map((filter) => (
               <button
-                key={f}
+                key={filter}
                 type="button"
-                onClick={() => setActiveFilter(f)}
-                className={`pf-filter-chip ${activeFilter === f ? 'active' : ''}`}
+                onClick={() => setActiveFilter(filter)}
+                className={`pf-filter-chip ${
+                  activeFilter === filter ? 'active' : ''
+                }`}
+                aria-pressed={activeFilter === filter}
               >
-                {f}
+                {filter}
               </button>
             ))}
           </div>
         </section>
 
-        <section className="pf-grid-section">
+        <section
+          className="pf-grid-section"
+          aria-label="Selected creative disciplines"
+        >
           <div className="pf-grid">
-            {visibleCategories.map((c) => (
-              <article className="pf-card" key={c.id}>
-                <div className="pf-video-slot" aria-label={`${c.title} video placeholder`}>
-                  <span className="pf-video-index">{c.index}</span>
-                  <span className="pf-play">
-                    <Play size={22} fill="currentColor" />
-                  </span>
-                  <span className="pf-video-handle">@swan.mrkting</span>
+            {visibleCategories.map((category) => (
+              <article
+                id={category.id}
+                className="pf-card"
+                key={category.id}
+              >
+                <div
+                  className={`pf-video-slot ${
+                    category.videoSrc || category.posterSrc
+                      ? 'pf-has-media'
+                      : ''
+                  }`}
+                  aria-label={`${category.title} media showcase`}
+                >
+                  {category.videoSrc ? (
+                    <video
+                      key={category.videoSrc}
+                      controls
+                      playsInline
+                      preload="none"
+                      poster={category.posterSrc}
+                      aria-label={`${category.title} portfolio video`}
+                    >
+                      <source src={category.videoSrc} />
+                      Your browser does not support embedded video.
+                    </video>
+                  ) : category.posterSrc ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      className="pf-poster"
+                      src={category.posterSrc}
+                      alt={`${category.title} showcase`}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : null}
+                  {!category.videoSrc && (
+                    <>
+                      <span className="pf-video-index">
+                        {category.index}
+                      </span>
+                      <span className="pf-video-handle">
+                        @swan.mrkting
+                      </span>
+                      <span className="pf-media-caption">
+                        {category.posterSrc
+                          ? 'Preview image'
+                          : 'Film space reserved'}
+                      </span>
+                    </>
+                  )}
                 </div>
-
                 <div className="pf-card-body">
                   <div className="pf-card-tags">
-                    {c.tags.map((t) => (
-                      <span className="pf-tag" key={t}>
-                        {t}
+                    {category.tags.map((tag) => (
+                      <span className="pf-tag" key={tag}>
+                        {tag}
                       </span>
                     ))}
                   </div>
-                  <h3>{c.title}</h3>
-                  <p>{c.copy}</p>
+                  <h3>{category.title}</h3>
+                  <p>{category.copy}</p>
                   <div className="pf-card-meta">
-                    <span>{c.meta}</span>
-                    <ArrowUpRight size={15} className="pf-card-arrow" />
+                    <span>{category.meta}</span>
+                    <Link
+                      href={`/contact?discipline=${encodeURIComponent(
+                        category.title,
+                      )}`}
+                      className="pf-card-project-link"
+                      aria-label={`Discuss a ${category.title} project`}
+                    >
+                      <ArrowUpRight
+                        size={15}
+                        className="pf-card-arrow"
+                      />
+                    </Link>
                   </div>
                 </div>
               </article>
@@ -280,66 +352,74 @@ export default function Portfolio() {
         </section>
 
         <section className="pf-meta-section">
-          <div className="pf-meta-global-handle">@swan.mrkting</div>
-
+          <div className="pf-meta-global-handle">
+            @swan.mrkting
+          </div>
           <div className="pf-meta-header">
-            <span className="eyebrow">Proof of Work · Advertising</span>
+            <span className="eyebrow">
+              Proof of Work · Advertising
+            </span>
             <h2>Meta Advertising</h2>
             <p>
-              A focused Meta strategy connecting brands with the right audience — through precise
-              targeting and high-engagement creative execution.
+              A focused Meta strategy connecting brands with the right
+              audience — through precise targeting and high-engagement
+              creative execution.
             </p>
           </div>
-
           <div className="pf-meta-stats">
-            {metaStats.map((s) => {
-              const Icon = s.icon
+            {metaStats.map((stat) => {
+              const Icon = stat.icon
               return (
-                <div className="pf-stat-tile" key={s.label}>
+                <div className="pf-stat-tile" key={stat.label}>
                   <div className="pf-stat-icon">
-                    <Icon size={20} />
+                    <Icon size={20} aria-hidden="true" />
                   </div>
-                  <strong>{s.value}</strong>
-                  <span>{s.label}</span>
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
                 </div>
               )
             })}
           </div>
-
           <div className="pf-meta-body">
-            <div className="pf-meta-chart">
-              {barData.map((b) => (
-                <div className="pf-bar-row" key={b.label}>
-                  <span className="pf-bar-label">{b.label}</span>
-                  <div className="pf-bar-track">
-                    <div className="pf-bar-fill" style={{ width: `${b.value}%` }} />
-                  </div>
-                  <span className="pf-bar-note">{b.note}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="pf-meta-narrative">
-              <p className="pf-meta-kicker">Campaign impact</p>
+            <div className="pf-campaign-cost">
+              <p className="pf-meta-kicker">
+                Reported cost per result
+              </p>
+              <strong>
+                <small>AED</small> 0.51
+              </strong>
               <p>
-                The campaign reached <strong>581,000+ people</strong>, generating{' '}
-                <strong>1.29M impressions</strong> and starting <strong>11,000+ conversations</strong>.
-                With <strong>16,291 link clicks</strong> at a cost of just{' '}
-                <strong>AED 0.51 per result</strong>, it proved our ability to deliver high engagement
-                and strong ROI through precise targeting and creative execution.
+                Campaign performance is evaluated against the objectives
+                and measurement setup of each brief.
+              </p>
+            </div>
+            <div className="pf-meta-narrative">
+              <p className="pf-meta-kicker">
+                Campaign impact
+              </p>
+              <p>
+                The supplied campaign figures include{' '}
+                <strong>581,000+ people reached</strong>,{' '}
+                <strong>1.29M impressions</strong>,{' '}
+                <strong>11,000+ conversations</strong> and{' '}
+                <strong>16,291 link clicks</strong>.
+                These results demonstrate measurable audience engagement.
+              </p>
+              <p className="pf-results-note">
+                Outcomes vary by audience, budget, creative and campaign
+                period. These figures do not establish revenue or ROI.
               </p>
             </div>
           </div>
-
-          <Link href="/contact" className="button button-dark pf-meta-cta">
+          <Link
+            href="/contact"
+            className="button button-dark pf-meta-cta"
+          >
             <span>Start a growth campaign</span>
             <ArrowRight size={15} />
           </Link>
         </section>
-
-    
       </main>
-
       <Footer />
     </>
   )

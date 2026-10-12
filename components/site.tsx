@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState, type MouseEvent, type PointerEvent, type ReactNode } from 'react'
-import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { ArrowUpRight, Globe, Mail, MapPin, Menu, Phone, X } from 'lucide-react'
 import {
   closingStatement,
   contact,
@@ -114,8 +114,6 @@ export function Header() {
           <Logo caption />
         </div>
 
-
-
         <nav className="desktop-nav" aria-label="Main navigation">
           {navItems.map((item) => {
             const active = isCurrentPath(pathname, item.href)
@@ -149,7 +147,6 @@ export function Header() {
         >
           {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
         </button>
-
       </div>
 
       {open && (
@@ -206,7 +203,7 @@ export function Footer() {
       )}
 
       <div className="footer-grid">
-        <div>
+        <div className="footer-brand">
           <Logo />
           <p className="footer-note">
             {positioning}
@@ -215,30 +212,46 @@ export function Footer() {
           </p>
         </div>
 
-        <div>
+        <div className="footer-col">
           <p className="footer-label">Explore</p>
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href}>
-              {item.label}
-            </Link>
-          ))}
+          <div className="footer-chips">
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
 
-        <div>
+        <div className="footer-col">
           <p className="footer-label">Capabilities</p>
-          {services.slice(0, 5).map((service) => (
-            <Link key={service.number} href="/services">
-              {service.title}
-            </Link>
-          ))}
+          <div className="footer-chips">
+            {services.slice(0, 5).map((service) => (
+              <Link key={service.number} href="/services">
+                {service.title}
+              </Link>
+            ))}
+          </div>
         </div>
 
-        <div>
+        <div className="footer-col footer-contact">
           <p className="footer-label">Dubai studio</p>
-          <a href={`tel:${contact.phone}`}>{contact.phone}</a>
-          <a href={`mailto:${contact.email}`}>{contact.email}</a>
-          <a href={`https://${contact.website}`}>{contact.website}</a>
-          <span>{contact.address}</span>
+          <a className="footer-item" href={`tel:${contact.phone}`}>
+            <i className="footer-ico"><Phone size={15} aria-hidden="true" /></i>
+            <span>{contact.phone}</span>
+          </a>
+          <a className="footer-item" href={`mailto:${contact.email}`}>
+            <i className="footer-ico"><Mail size={15} aria-hidden="true" /></i>
+            <span>{contact.email}</span>
+          </a>
+          <a className="footer-item" href={`https://${contact.website}`}>
+            <i className="footer-ico"><Globe size={15} aria-hidden="true" /></i>
+            <span>{contact.website}</span>
+          </a>
+          <div className="footer-item">
+            <i className="footer-ico"><MapPin size={15} aria-hidden="true" /></i>
+            <span>{contact.address}</span>
+          </div>
         </div>
       </div>
 

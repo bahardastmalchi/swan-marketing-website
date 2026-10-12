@@ -3089,3 +3089,395 @@ main.internal-page.swan-services-page {
   }
 
 }
+/* =========================================================
+   SWAN — Services page (sx-*)
+   REPLACE the whole old sx-* block in globals.css with this.
+   (first line must start with /* — not //* )
+   ========================================================= */
+
+.sx-page { padding-top: clamp(120px, 11vw, 170px); background: var(--ivory); overflow: hidden; }
+
+/* ---- Hero ---- */
+.sx-hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); align-items: center; min-height: 300px; padding: 0 var(--page-pad); }
+.sx-hero-copy { position: relative; z-index: 2; max-width: 760px; padding-bottom: clamp(24px, 3vw, 44px); }
+.sx-hero-copy h1 { margin: 20px 0 22px; font: 400 clamp(38px, 5.6vw, 88px)/.94 var(--font-display); letter-spacing: -.06em; }
+.sx-hero-lead { margin: 0; color: var(--muted); font-size: clamp(15px, 1.3vw, 18px); }
+.sx-hero-visual { position: absolute; top: -40px; bottom: 0; right: 0; width: 42%;
+  background: var(--img) right center / cover no-repeat, linear-gradient(130deg, #ebe7de, #d8d1c3);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 45%), linear-gradient(to top, transparent 0, #000 25%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent 0, #000 45%), linear-gradient(to top, transparent 0, #000 25%);
+  mask-composite: intersect; }
+
+/* ---- Quick index ---- */
+.sx-index { display: flex; gap: 8px; overflow-x: auto; padding: 4px var(--page-pad) 22px; margin-bottom: 8px; scrollbar-width: none; }
+.sx-index::-webkit-scrollbar { display: none; }
+.sx-index a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--muted); transition: background .25s, color .25s, border-color .25s; }
+.sx-index a span { font: 9px var(--font-mono); letter-spacing: .08em; opacity: .7; }
+.sx-index a:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+/* ---- Cards: every card = same grid, same height ---- */
+.sx-list { display: grid; gap: 14px; padding: 0 var(--page-pad); }
+.sx-card { display: grid; grid-template-columns: 72px minmax(0, 1.1fr) minmax(0, .9fr) clamp(110px, 16%, 220px); align-items: center; height: 196px; overflow: hidden; border: 1px solid var(--line); border-radius: 26px; background: var(--paper); box-shadow: 0 16px 36px -28px rgba(27, 27, 25, .4), inset 0 1px 0 rgba(255, 255, 255, .8); content-visibility: auto; contain-intrinsic-size: auto 196px; transition: border-color .3s, box-shadow .3s; }
+.sx-card:hover { border-color: #b9b5aa; box-shadow: 0 24px 46px -30px rgba(27, 27, 25, .45), inset 0 1px 0 rgba(255, 255, 255, .8); }
+
+.sx-num { padding-left: 26px; color: var(--muted); font: 11px var(--font-mono); letter-spacing: .08em; }
+
+.sx-main { display: flex; flex-direction: column; justify-content: center; gap: 12px; min-width: 0; padding: 0 28px 0 24px; border-left: 1px solid var(--line); height: 96px; }
+.sx-title { margin: 0; font: 400 clamp(21px, 2.3vw, 32px)/1.05 var(--font-display); letter-spacing: -.045em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sx-intro { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.sx-items { align-self: center; display: grid; gap: 0; margin: 0; padding: 0 12px 0 0; list-style: none; }
+.sx-items li { position: relative; padding: 9px 0 9px 18px; border-top: 1px solid var(--line); font-size: 13px; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sx-items li:first-child { border-top: 0; }
+.sx-items li::before { content: ''; position: absolute; left: 0; top: 50%; width: 8px; height: 1px; background: var(--muted); }
+
+.sx-media { align-self: stretch; background: var(--img) center / cover no-repeat, linear-gradient(140deg, #e9e5db, #d4cdbf); -webkit-mask-image: linear-gradient(to right, transparent 0, #000 45%); mask-image: linear-gradient(to right, transparent 0, #000 45%); }
+
+/* ---- CTA ---- */
+.sx-cta { display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(64px, 8vw, 120px) var(--page-pad) clamp(56px, 7vw, 96px); }
+.sx-cta h2 { margin: 14px 0 28px; font: 400 clamp(30px, 4vw, 56px)/1 var(--font-display); letter-spacing: -.05em; }
+
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+  .sx-card { grid-template-columns: 60px minmax(0, 1.1fr) minmax(0, 1fr) 80px; }
+  .sx-items li { font-size: 12.5px; }
+}
+@media (max-width: 900px) {
+  .sx-hero { grid-template-columns: 1fr; min-height: 0; }
+  .sx-hero-visual { display: none; }
+  /* same size for all: fixed 2-row layout */
+  .sx-card { grid-template-columns: 52px minmax(0, 1fr); grid-template-rows: auto auto; align-items: start; height: 300px; padding: 26px 0 0; }
+  .sx-num { padding: 4px 0 0 20px; grid-row: 1; }
+  .sx-main { grid-row: 1; height: auto; min-height: 96px; padding: 0 22px 0 18px; }
+  .sx-items { grid-column: 1 / -1; grid-row: 2; align-self: start; padding: 18px 22px 0 72px; }
+  .sx-media { display: none; }
+}
+@media (max-width: 520px) {
+  .sx-card { height: 320px; border-radius: 22px; }
+  .sx-items { padding-left: 22px; }
+  .sx-items li { white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) { .sx-card, .sx-index a { transition: none; } }
+/* =========================================================
+   SWAN — Service path wave (wv-*)
+   Append to END of globals.css. Replaces the old
+   ".hx-path / .hx-flow / .hx-node / .hx-step" blocks (delete those).
+   ========================================================= */
+
+.wv-section { padding: clamp(56px, 7vw, 110px) var(--page-pad) var(--section-pad); background: var(--paper); }
+.wv-head h2 { max-width: 16ch; margin: 14px 0 0; font: 400 clamp(28px, 3.4vw, 52px)/1.05 var(--font-display); letter-spacing: -.04em; }
+
+/* one grid: cards above (row 1), wave (row 2), cards below (row 3) */
+.wv-flow { display: grid; grid-template-columns: repeat(300, minmax(0, 1fr)); margin-top: clamp(36px, 5vw, 72px); }
+.wv-stages { display: contents; margin: 0; padding: 0; list-style: none; }
+
+.wv-line { grid-row: 2; grid-column: 1 / -1; position: relative; aspect-ratio: 1200 / 200; }
+.wv-line svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.wv-base, .wv-trail { fill: none; stroke-width: 1.6; stroke-linecap: round; }
+.wv-base { stroke: var(--line); }
+.wv-trail { stroke: var(--ink); stroke-dasharray: 1; stroke-dashoffset: 1; }
+.wv-node { position: absolute; width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; border-radius: 50%; background: var(--paper); border: 1px solid #a8a59c; transition: background .4s, border-color .4s, box-shadow .4s; }
+.wv-node.is-on { background: var(--ink); border-color: var(--ink); box-shadow: 0 0 0 6px rgba(27, 27, 25, .07); }
+.wv-dot { position: absolute; left: 0; top: 0; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 5px rgba(27, 27, 25, .1); pointer-events: none; }
+
+/* stage card: always the same structure */
+.wv-stage { grid-column: var(--c) / span 80; padding: 0 10px; text-align: center; transition: opacity .6s ease; }
+.wv-stage.is-top { grid-row: 1; align-self: end; padding-bottom: 6px; }
+.wv-stage.is-bottom { grid-row: 3; align-self: start; padding-top: 6px; }
+.wv-flow.is-ready .wv-stage { opacity: .38; }
+.wv-flow.is-ready .wv-stage.is-on { opacity: 1; }
+
+.wv-num { display: block; margin-bottom: 8px; color: var(--muted); font: 10px var(--font-mono); letter-spacing: .14em; }
+.wv-stage h3 { margin: 0 0 14px; font: 400 clamp(19px, 1.9vw, 26px)/1.1 var(--font-display); letter-spacing: -.03em; }
+.wv-stage ul { max-width: 300px; margin: 0 auto; padding: 0; list-style: none; border-bottom: 1px solid var(--line); }
+.wv-stage li { padding: 8px 0; border-top: 1px solid var(--line); font-size: 12.5px; line-height: 1.4; color: var(--muted); }
+
+/* tablet + mobile: vertical timeline, same data, same on-state */
+@media (max-width: 1000px) {
+  .wv-flow { display: block; }
+  .wv-stages { display: block; }
+  .wv-line { display: none; }
+  .wv-stage, .wv-stage.is-top, .wv-stage.is-bottom { position: relative; padding: 0 0 36px 40px; text-align: left; }
+  .wv-stage::before { content: ''; position: absolute; left: 0; top: 4px; width: 13px; height: 13px; border-radius: 50%; background: var(--paper); border: 1px solid #a8a59c; transition: background .4s, border-color .4s; z-index: 1; }
+  .wv-stage::after { content: ''; position: absolute; left: 6px; top: 18px; bottom: 0; width: 1px; background: var(--line); }
+  .wv-stage:last-child::after { display: none; }
+  .wv-stage.is-on::before { background: var(--ink); border-color: var(--ink); }
+  .wv-stage ul { max-width: 460px; margin: 0; }
+  .wv-stage li { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .wv-stage, .wv-node { transition: none; } }
+/* =========================================================
+   SWAN — Footer: contact icons + tidy mobile layout
+   REPLACE the earlier footer-icons block, then keep it at the
+   VERY END of globals.css (after the old footer blocks).
+   ========================================================= */
+
+/* ---- links column wrapper (same look as before) ---- */
+.footer-chips { display: flex; flex-direction: column; align-items: flex-start; }
+
+/* ---- contact rows with icons ---- */
+.footer .footer-item { display: flex; align-items: flex-start; gap: 10px; max-width: 100%; margin: 5px 0; font-size: 12px; line-height: 1.5; transition: color .25s; }
+.footer .footer-item span { margin: 0; font-size: inherit; min-width: 0; overflow-wrap: anywhere; }
+.footer .footer-ico { flex: none; display: grid; place-items: center; width: 16px; height: 16px; margin-top: 2px; color: var(--muted); font-style: normal; transition: color .25s; }
+.footer a.footer-item:hover .footer-ico { color: var(--ink); }
+
+/* ---- mobile: brand on top, Explore | Capabilities side by side,
+        contact below. No cards, tighter spacing. ---- */
+@media (max-width: 800px) {
+  .footer .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 18px; padding: 32px 0 24px; }
+
+  .footer .footer-grid > .footer-brand { grid-column: 1 / -1; padding: 0 0 22px; border-bottom: 1px solid var(--line); }
+  .footer .footer-grid > .footer-col { display: flex; flex-direction: column; align-items: flex-start; grid-column: auto; min-width: 0; padding: 0; border: 0; }
+  .footer .footer-grid > .footer-contact { grid-column: 1 / -1; padding-top: 22px; border-top: 1px solid var(--line); }
+
+  .footer .footer-brand .wordmark { width: 100px; height: 40px; margin-bottom: 14px; }
+  .footer .footer-note { max-width: none; font-size: 11.5px; line-height: 1.75; }
+
+  .footer .footer-col .footer-label { margin: 0 0 12px; font-size: 9px; }
+  .footer .footer-chips { gap: 0; }
+  .footer .footer-chips a { margin: 0; padding: 5px 0; font-size: 12px; line-height: 1.45; }
+
+  .footer .footer-contact .footer-item { margin: 0; padding: 6px 0; font-size: 12px; }
+
+  .footer .footer-bottom { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding-top: 16px; font-size: 8.5px; }
+}
+/* =========================================================
+   SWAN — Home: hero + responsive fixes
+   Append to the VERY END of globals.css (must come after all
+   older .swan-hero / hx-* blocks so it overrides them).
+   ========================================================= */
+
+/* ---- Tablet 801–1100: keep art and copy from colliding ---- */
+@media (min-width: 801px) and (max-width: 1100px) {
+  .swan-hero { min-height: max(760px, 100svh); padding-bottom: 140px; }
+  .swan-hero-copy { max-width: min(600px, 62%); }
+  .swan-hero-copy h1 { font-size: clamp(60px, 8.4vw, 92px); }
+  .hero-installation { width: 36vw; height: min(62vw, 560px); right: 5vw; top: 20%; }
+  .hero-signal { top: 116px; right: var(--page-pad); }
+}
+
+/* ---- Mobile hero ---- */
+@media (max-width: 800px) {
+  .swan-hero {
+    min-height: max(640px, 100svh);
+    padding: 132px var(--page-pad) 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  /* three small labels spread neatly under the header */
+  .hero-signal {
+    top: 96px; left: var(--page-pad); right: var(--page-pad);
+    justify-content: space-between; gap: 8px; flex-wrap: nowrap; white-space: nowrap;
+    font-size: 8px; letter-spacing: .12em;
+  }
+
+  /* art sits behind, quieter, so the text stays readable */
+  .hero-installation { width: 78vw; height: 50svh; right: -16vw; top: 14%; opacity: .38; transform: rotate(6deg); }
+  .hero-giant-word { font-size: 46vw; bottom: 4vw; left: -3vw; }
+
+  .swan-hero-copy { width: 100%; max-width: none; }
+  .swan-hero-copy .eyebrow { max-width: 30ch; }
+  .swan-hero-copy h1 { max-width: none; margin: 18px 0 22px; font-size: clamp(50px, 15.5vw, 84px); line-height: .9; }
+  .hero-deck { max-width: 34ch; font-size: 14px; line-height: 1.7; }
+
+  /* full-width, easy-to-tap actions */
+  .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; margin-top: 26px; }
+  .hero-actions .button,
+  .swan-hero .hero-actions .text-link { width: 100%; min-height: 50px; justify-content: space-between; font-size: 12px; padding-inline: 20px; }
+
+  .hero-footer { left: var(--page-pad); right: var(--page-pad); bottom: 22px; }
+}
+
+@media (max-width: 480px) {
+  .swan-hero { padding-top: 124px; }
+  .swan-hero-copy h1 { font-size: clamp(46px, 14.5vw, 62px); }
+  .hero-signal span:nth-child(2) { display: none; } /* keep 2 labels on very small phones */
+}
+
+/* short landscape phones */
+@media (max-width: 900px) and (max-height: 520px) {
+  .swan-hero { min-height: auto; padding: 110px var(--page-pad) 90px; justify-content: center; }
+  .hero-installation, .hero-giant-word { display: none; }
+}
+
+/* ---- Rest of the home page ---- */
+@media (max-width: 800px) {
+  .section-marker { gap: 12px; }
+  .hx-mf-top { flex-wrap: wrap; gap: 6px 16px; }
+  .hx-services { margin-top: 24px; }
+  .hx-service-name { font-size: clamp(21px, 6vw, 28px); }
+  .hx-chart { padding: 16px; }
+  .hx-chart-readout { gap: 12px; }
+  .hx-rail { margin-right: calc(var(--page-pad) * -1); padding-right: var(--page-pad); }
+  .hx-cta-main { gap: 28px; }
+  .hx-cta-button { width: 100%; justify-content: space-between; }
+}
+@media (max-width: 480px) {
+  .hx-stat strong { font-size: 40px; }
+  .hx-stat { padding-top: 22px; }
+  .hx-chart-readout strong { font-size: 24px; }
+}
+/* =========================================================
+   SWAN — Section 04 WhatsApp CTA (hx-wa)
+   Append to END of globals.css. The old .hx-mf-pills rules are
+   no longer used and can be deleted.
+   ========================================================= */
+
+.hx-mf-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: clamp(18px, 2.2vw, 28px); }
+
+.hx-wa { display: inline-flex; align-items: center; gap: 14px; max-width: 100%; padding: 8px 22px 8px 8px; border-radius: 999px; background: var(--ink); color: var(--paper); box-shadow: 0 18px 34px -20px rgba(27, 27, 25, .7); transition: background .3s, transform .3s, box-shadow .3s; }
+.hx-wa:hover { background: #34332f; transform: translateY(-2px); box-shadow: 0 24px 40px -22px rgba(27, 27, 25, .75); }
+.hx-wa:active { transform: translateY(0); }
+
+.hx-wa-ico { position: relative; flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--paper); color: var(--ink); transition: transform .3s; }
+.hx-wa:hover .hx-wa-ico { transform: rotate(-8deg) scale(1.05); }
+/* soft pulse ring: draws the eye without being loud */
+.hx-wa-ico::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(250, 249, 246, .7); animation: hx-wa-pulse 2.6s ease-out infinite; pointer-events: none; }
+
+.hx-wa-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.hx-wa-text strong { font: 500 14px/1.1 var(--font-body); letter-spacing: .01em; }
+.hx-wa-text small { font: 10px/1.1 var(--font-mono); letter-spacing: .1em; opacity: .7; }
+.hx-wa-arrow { flex: none; margin-left: 6px; opacity: .8; transition: transform .3s, opacity .3s; }
+.hx-wa:hover .hx-wa-arrow { transform: translate(2px, -2px); opacity: 1; }
+
+.hx-mf-copy .hx-mf-cta-note { max-width: none; margin: 0; padding-left: 4px; color: #6b675d; font: 9px/1.5 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+
+@keyframes hx-wa-pulse { 0% { transform: scale(1); opacity: .9; } 70%, 100% { transform: scale(1.5); opacity: 0; } }
+
+@media (max-width: 800px) {
+  .hx-mf-cta { align-items: stretch; }
+  .hx-wa { width: 100%; }
+  .hx-wa-arrow { margin-left: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hx-wa-ico::after { animation: none; display: none; }
+  .hx-wa, .hx-wa-ico, .hx-wa-arrow { transition: none; }
+}
+.pf-hero-inner {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  max-width: var(--container, 1200px);
+  margin: 0 auto;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.pf-hero-text {
+  flex: 1 1 55%;
+  min-width: 0;
+}
+
+.pf-hero-media {
+  flex: 1 1 45%;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.pf-hero-image {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .pf-hero-media {
+    display: none;
+  }
+
+  .pf-hero-inner {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2.5rem 1.25rem 2rem;
+  }
+
+  .pf-hero-text {
+    flex: 1 1 100%;
+  }
+
+  .pf-hero h1 {
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+  }
+}
+.about-hero-inner {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.about-hero-content {
+  flex: 1 1 55%;
+  min-width: 0;
+}
+
+.about-hero-media {
+  flex: 1 1 45%;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.about-hero-image {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .about-hero-media {
+    display: none;
+  }
+
+  .about-hero-content {
+    flex: 1 1 100%;
+  }
+}
+/* --- floating white swan in the hero installation --- */
+.swan-float {
+  width: clamp(240px, 30vw, 460px);
+  height: auto;
+  animation: swan-float 7s ease-in-out infinite;
+  filter: drop-shadow(0 0 55px rgba(255, 255, 255, 0.16));
+  will-change: transform;
+}
+
+@keyframes swan-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-20px) rotate(0.6deg); }
+}
+
+.installation-reflection {
+  position: absolute;
+  bottom: -6%;
+  left: 50%;
+  width: 55%;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.22),
+    transparent 70%
+  );
+  filter: blur(6px);
+  transform: translateX(-50%);
+  animation: swan-shadow 7s ease-in-out infinite;
+}
+
+@keyframes swan-shadow {
+  0%, 100% { transform: translateX(-50%) scale(1);    opacity: 0.55; }
+  50%      { transform: translateX(-50%) scale(0.78); opacity: 0.3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swan-float,
+  .installation-reflection {
+    animation: none;
+  }
+}
